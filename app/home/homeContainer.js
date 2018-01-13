@@ -1,10 +1,17 @@
+// @flow
 import React from "react";
 import { View, Image, TouchableOpacity, Text } from "react-native";
 import { NavigationActions } from "react-navigation";
 
 import { styles as s, sizes } from "react-native-style-tachyons";
 
-export const HomeContainer = props => (
+type Props = {
+  navigation: {
+    dispatch: (action: any) => mixed
+  }
+};
+
+export const HomeContainer = (props: Props) => (
   <View style={[s.flx_i, s.pa3, s.mt3]}>
     <Image
       source={require("../images/nzhl-logo.png")}

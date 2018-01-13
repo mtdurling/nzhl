@@ -17,12 +17,16 @@
     "redux-saga": "^0.16.0"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.1",
     "babel-jest": "22.0.6",
     "babel-preset-react-native": "4.0.0",
     "eslint": "^4.15.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-flowtype": "^2.41.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^2.4.0",
     "eslint-plugin-react": "^7.5.1",
     "jest": "22.0.6",
     "prettier": "^1.10.2",
