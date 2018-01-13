@@ -6,6 +6,7 @@ import { ScanningContainer } from "./scan/scanningContainer";
 import { AddressDetailContainer } from "./address/addressDetailContainer";
 import { ActionsContainer } from "./actions/actionsContainer";
 import { NotesContainer } from "./actions/notesContainer";
+import { AddressLookup } from "./address/addressLookup";
 
 export const AppNavigator = StackNavigator(
   {
@@ -24,6 +25,9 @@ export const AppNavigator = StackNavigator(
     },
     notes: {
       screen: withMappedNavigationProps(NotesContainer)
+    },
+    addressLookup: {
+      screen: withMappedNavigationProps(AddressLookup)
     }
   },
   {

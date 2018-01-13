@@ -67,6 +67,20 @@ export class ScanningContainer extends Component<Props, State> {
   }
 }
 
-ScanningContainer.navigationOptions = () => ({
-  title: "Address Lookup"
+ScanningContainer.navigationOptions = ({ navigation }) => ({
+  title: "Address Lookup",
+  headerRight: (
+    <TouchableOpacity
+      style={[s.mr2]}
+      onPress={() => {
+        navigation.dispatch(
+          NavigationActions.navigate({
+            routeName: "addressLookup"
+          })
+        );
+      }}
+    >
+      <Text>Manual</Text>
+    </TouchableOpacity>
+  )
 });
