@@ -1,17 +1,21 @@
-import React from "react";
 import { StackNavigator } from "react-navigation";
+import { withMappedNavigationProps } from "react-navigation-props-mapper";
 
 import { HomeContainer } from "./home/homeContainer";
 import { ScanningContainer } from "./scan/scanningContainer";
+import { AddressDetailContainer } from "./address/addressDetailContainer";
 
 export const AppNavigator = StackNavigator(
   {
     home: {
-      screen: HomeContainer,
+      screen: withMappedNavigationProps(HomeContainer),
       navigationOptions: { header: null }
     },
     scan: {
-      screen: ScanningContainer
+      screen: withMappedNavigationProps(ScanningContainer)
+    },
+    addressDetail: {
+      screen: withMappedNavigationProps(AddressDetailContainer)
     }
   },
   {
