@@ -3,12 +3,14 @@ import React from "react";
 import { connect, Provider } from "react-redux";
 import logger from "redux-logger";
 import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from "redux-saga";
 
 import NativeTachyons from "react-native-style-tachyons";
 import { StyleSheet } from "react-native";
 import { addNavigationHelpers } from "react-navigation";
 
 import { RootReducer } from "./rootReducer";
+import { rootSaga } from "./rootSaga";
 import { AppNavigator } from "./appNavigator";
 
 NativeTachyons.build(
@@ -41,8 +43,11 @@ const mapStateToProps = state => ({
 });
 
 const AppWithNavigationState = connect(mapStateToProps)(Navigator);
+const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(RootReducer, applyMiddleware(logger));
+const store = createStore(RootReducer, applyMiddleware(logger, sagaMiddleware));
+
+sagaMiddleware.run(rootSaga);
 
 export const App = () => (
   <Provider store={store}>

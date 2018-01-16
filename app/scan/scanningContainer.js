@@ -1,21 +1,26 @@
 // @flow
 import React, { Component } from "react";
 import { View, FlatList, Text, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
 import { NavigationActions } from "react-navigation";
-
 import { styles as s } from "react-native-style-tachyons";
+import * as Progress from "react-native-progress";
+
+import { fetchClosestAddresses } from "../address/addressActions";
 
 type Props = {
   navigation: {
     dispatch: (action: any) => mixed
-  }
+  },
+  closestAddresses: [{}],
+  isFetching: boolean
 };
 
 type State = {
   location: { latitude: string, longitude: string }
 };
 
-export class ScanningContainer extends Component<Props, State> {
+class ScanningContainerPlaceholder extends Component<Props, State> {
   constructor() {
     super();
     this.state = {
@@ -26,12 +31,19 @@ export class ScanningContainer extends Component<Props, State> {
     /* eslint-disable */
     navigator.geolocation.requestAuthorization();
     navigator.geolocation.getCurrentPosition(({ coords }) => {
-      console.log(coords);
+      this.props.fetchClosestAddresses(coords);
     });
     /* eslint-enable */
   }
 
   render() {
+    if (this.props.isFetching) {
+      return (
+        <View style={[s.flx_i, s.aic, s.jcc]}>
+          <Progress.Circle size={100} indeterminate />
+        </View>
+      );
+    }
     return (
       <View style={[s.flx_i, s.pa3, s.mt3]}>
         {this.state.location && (
@@ -41,7 +53,7 @@ export class ScanningContainer extends Component<Props, State> {
           </View>
         )}
         <FlatList
-          data={[{ id: 1, name: "Address 1" }, { id: 2, name: "Address 2" }]}
+          data={this.props.closestAddresses}
           extraData={this.state}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
@@ -58,7 +70,7 @@ export class ScanningContainer extends Component<Props, State> {
               }}
               style={[s.ba, s.pa3]}
             >
-              <Text>{item.name}</Text>
+              <Text>{item.description}</Text>
             </TouchableOpacity>
           )}
         />
@@ -67,7 +79,7 @@ export class ScanningContainer extends Component<Props, State> {
   }
 }
 
-ScanningContainer.navigationOptions = ({ navigation }) => ({
+ScanningContainerPlaceholder.navigationOptions = ({ navigation }) => ({
   title: "Address Lookup",
   headerRight: (
     <TouchableOpacity
@@ -84,3 +96,15 @@ ScanningContainer.navigationOptions = ({ navigation }) => ({
     </TouchableOpacity>
   )
 });
+
+const mapStateToProps = state => {
+  const { closestAddresses, isFetching } = state.address;
+  return {
+    closestAddresses,
+    isFetching
+  };
+};
+
+export const ScanningContainer = connect(mapStateToProps, {
+  fetchClosestAddresses
+})(ScanningContainerPlaceholder);
