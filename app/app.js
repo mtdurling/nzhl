@@ -12,9 +12,11 @@ import { addNavigationHelpers } from "react-navigation";
 import { RootReducer } from "./rootReducer";
 import { rootSaga } from "./rootSaga";
 import { AppNavigator } from "./appNavigator";
+import { colors } from "./colors";
 
 NativeTachyons.build(
   {
+    colors: { palette: colors },
     /* REM parameter is optional, default is 16 */
     rem: 16
   },

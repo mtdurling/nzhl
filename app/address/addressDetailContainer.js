@@ -8,12 +8,12 @@ type Props = {
   navigation: {
     dispatch: (action: any) => mixed
   },
-  address: { name: string }
+  address: { formatted_address: string }
 };
 
 export const AddressDetailContainer = (props: Props) => (
   <View style={[s.flx_i, s.bg_blue, s.aic, s.jcc]}>
-    <Text>{props.address.name}</Text>
+    <Text>{props.address.formatted_address}</Text>
     <TouchableOpacity
       style={[s.pa3, s.ba]}
       onPress={() => {
