@@ -20,7 +20,7 @@ export const NotesContainer = (props: Props) => (
           NavigationActions.reset({
             index: 0,
             key: null,
-            actions: [NavigationActions.navigate({ routeName: "home" })]
+            actions: [NavigationActions.navigate({ routeName: "login" })]
           })
         );
       }}

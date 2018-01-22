@@ -143,5 +143,6 @@ export class ScanningContainer extends Component<Props, State> {
 }
 
 ScanningContainer.navigationOptions = () => ({
-  title: "Address Lookup"
+  title: "Address Lookup",
+  headerLeft: null
 });

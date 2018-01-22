@@ -4,6 +4,7 @@ import { connect, Provider } from "react-redux";
 import logger from "redux-logger";
 import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
+import firebase from "react-native-firebase";
 
 import NativeTachyons from "react-native-style-tachyons";
 import { StyleSheet } from "react-native";

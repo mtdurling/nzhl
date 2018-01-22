@@ -1,18 +1,31 @@
-import { StackNavigator } from "react-navigation";
+import React from "react";
+import { StackNavigator, NavigationActions } from "react-navigation";
 import { withMappedNavigationProps } from "react-navigation-props-mapper";
+import { TouchableOpacity, Text } from "react-native";
+import { styles as s } from "react-native-style-tachyons";
+import firebase from "react-native-firebase";
 
-import { HomeContainer } from "./home/homeContainer";
+import LoginContainer from "./login/loginContainer";
 import { ScanningContainer } from "./scan/scanningContainer";
 import { AddressDetailContainer } from "./address/addressDetailContainer";
 import { ActionsContainer } from "./actions/actionsContainer";
 import { NotesContainer } from "./actions/notesContainer";
 import { AddressLookup } from "./address/addressLookup";
+import { AppLoading } from "./appLoading";
 
 export const AppNavigator = StackNavigator(
   {
-    home: {
-      screen: withMappedNavigationProps(HomeContainer),
-      navigationOptions: { header: null }
+    appLoading: {
+      screen: withMappedNavigationProps(AppLoading),
+      navigationOptions: {
+        headerRight: null
+      }
+    },
+    login: {
+      screen: withMappedNavigationProps(LoginContainer),
+      navigationOptions: {
+        headerRight: null
+      }
     },
     scan: {
       screen: withMappedNavigationProps(ScanningContainer)
@@ -31,6 +44,19 @@ export const AppNavigator = StackNavigator(
     }
   },
   {
-    cardStyle: { backgroundColor: "#fff" }
+    cardStyle: { backgroundColor: "#fff" },
+    navigationOptions: () => ({
+      headerStyle: { backgroundColor: "white", borderBottomWidth: 0 },
+      headerRight: (
+        <TouchableOpacity
+          onPress={() => {
+            firebase.auth().signOut();
+          }}
+          style={[s.mr3]}
+        >
+          <Text>Logout</Text>
+        </TouchableOpacity>
+      )
+    })
   }
 );
